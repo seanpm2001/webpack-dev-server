@@ -795,6 +795,12 @@ declare class Server {
           | {
               type: string;
               multiple: boolean;
+              /**
+               * prependEntry Method for webpack 4
+               * @param {any} originalEntry
+               * @param {any} newAdditionalEntries
+               * @returns {any}
+               */
               description: string;
               path: string;
             }
@@ -826,12 +832,13 @@ declare class Server {
         configs: {
           type: string;
           multiple: boolean;
+          /** @type {any} */
           description: string;
           negatedDescription: string;
           path: string;
         }[];
         description: string;
-        /** @type {MultiCompiler} */ simpleType: string;
+        simpleType: string;
         multiple: boolean;
       };
       open: {
@@ -865,10 +872,6 @@ declare class Server {
         simpleType: string;
         multiple: boolean;
       };
-      /**
-       * @private
-       * @returns {Promise<void>}
-       */
       "open-app-name": {
         configs: {
           type: string;
@@ -928,7 +931,7 @@ declare class Server {
         configs: (
           | {
               type: string;
-              /** @type {NormalizedStatic} */ multiple: boolean;
+              multiple: boolean;
               description: string;
               path: string;
             }
@@ -937,7 +940,7 @@ declare class Server {
               values: string[];
               multiple: boolean;
               description: string;
-              path: string;
+              /** @type {NormalizedStatic} */ path: string;
             }
         )[];
         description: string;
@@ -1109,9 +1112,8 @@ declare class Server {
         }[];
         description: string;
         multiple: boolean;
-        simpleType: string /** @type {Array<keyof ServerOptions>} */;
+        simpleType: string;
       };
-      /** @type {Array<keyof ServerOptions>} */
       static: {
         configs: (
           | {
@@ -1125,14 +1127,13 @@ declare class Server {
               multiple: boolean;
               description: string;
               negatedDescription: string;
-              path: string;
+              path: string /** @type {ServerOptions} */;
             }
         )[];
         description: string;
-        /** @type {any} */ simpleType: string;
-        multiple: boolean /** @type {ServerOptions} */;
+        simpleType: string;
+        multiple: boolean;
       };
-      /** @type {ServerOptions} */
       "static-directory": {
         configs: {
           type: string;
@@ -1159,7 +1160,7 @@ declare class Server {
         configs: {
           type: string;
           multiple: boolean;
-          /** @type {ServerOptions} */ description: string;
+          description: string;
           path: string;
         }[];
         description: string;
@@ -1244,7 +1245,6 @@ declare class Server {
               description: string;
               multiple: boolean;
               path: string;
-              /** @type {ServerOptions & { cacert?: ServerOptions["ca"] }} */
               type: string;
             }
         )[];
@@ -1256,6 +1256,7 @@ declare class Server {
         configs: (
           | {
               description: string;
+              /** @type {ServerOptions & { cacert?: ServerOptions["ca"] }} */
               multiple: boolean;
               path: string;
               type: string;
@@ -2110,12 +2111,6 @@ declare class Server {
                           }
                         | {
                             type: string;
-                            /**
-                             * prependEntry Method for webpack 4
-                             * @param {any} originalEntry
-                             * @param {any} newAdditionalEntries
-                             * @returns {any}
-                             */
                             minLength: number;
                             items?: undefined;
                             minItems?: undefined;
@@ -2140,7 +2135,6 @@ declare class Server {
                   cli: {
                     description: string;
                   };
-                  /** @type {Object<string,string>} */
                   additionalProperties?: undefined;
                   properties?: undefined;
                 }
@@ -2191,12 +2185,13 @@ declare class Server {
               items: {
                 anyOf: (
                   | {
+                      /** @type {any} */
                       type: string;
                       instanceof?: undefined;
                     }
                   | {
                       instanceof: string;
-                      type?: undefined;
+                      /** @type {any} */ type?: undefined;
                     }
                 )[];
               };
@@ -2209,6 +2204,10 @@ declare class Server {
         anyOf: {
           $ref: string;
         }[];
+        /**
+         * @private
+         * @returns {Compiler["options"]}
+         */
         link: string;
         description: string;
       };
@@ -2248,7 +2247,7 @@ declare class Server {
         properties: {
           passphrase: {
             type: string;
-            /** @type {MultiCompiler} */ description: string;
+            description: string;
           };
           requestCert: {
             type: string;
@@ -2268,6 +2267,10 @@ declare class Server {
                           instanceof?: undefined;
                         }
                       | {
+                          /**
+                           * @private
+                           * @returns {Promise<void>}
+                           */
                           instanceof: string;
                           type?: undefined;
                         }
@@ -2375,7 +2378,7 @@ declare class Server {
                 }
               | {
                   instanceof: string;
-                  /** @type {NormalizedStatic} */ type?: undefined;
+                  type?: undefined;
                   items?: undefined;
                 }
             )[];
@@ -2641,7 +2644,8 @@ declare class Server {
           $ref: string;
         }[];
         description: string;
-        link: string /** @type {Array<keyof ServerOptions>} */;
+        /** @type {ServerOptions} */
+        link: string;
       };
       WebSocketServerType: {
         enum: string[];
@@ -2650,8 +2654,9 @@ declare class Server {
         anyOf: (
           | {
               enum: boolean[];
+              /** @type {ServerOptions} */
               cli: {
-                negatedDescription: string;
+                negatedDescription: string /** @type {ServerOptions} */;
               };
               $ref?: undefined;
             }
@@ -2682,15 +2687,24 @@ declare class Server {
             cli: {
               exclude: boolean;
             };
-          };
+          } /** @type {any} */;
         };
-        additionalProperties: boolean;
+        /** @type {any} */ additionalProperties: boolean;
       };
+      /** @type {ServerOptions} */
       WebSocketServerString: {
         type: string;
         minLength: number;
       };
+      /**
+       * @param {string | Buffer | undefined} item
+       * @returns {string | Buffer | undefined}
+       */
     };
+    /**
+     * @param {string | Buffer | undefined} item
+     * @returns {string | Buffer | undefined}
+     */
     additionalProperties: boolean;
     properties: {
       allowedHosts: {
